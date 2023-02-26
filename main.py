@@ -117,7 +117,7 @@ class UseDB:
                                 join contacts c2 on cc.cont_id = c2.cont_id 
                                 where c.first_name = %s and c.last_name = %s;""", (fn, ln))
                 data_list = cur.fetchall()
-                print(f'Для пользователя {fn} {ln} найдены следующие данные:')
+                print(f'Для клиента {fn} {ln} найдены следующие данные:')
                 counter = 1
                 for phone, email in data_list:
                     print(f'Телефон №{counter}: {phone}. Email №{counter}: {email}')
@@ -134,8 +134,11 @@ class UseDB:
                             join cli_cont cc on c.cli_id = cc.cli_id 
                             join contacts c2 on cc.cont_id = c2.cont_id 
                             where c2.email = %s;""", (em,))
-                fname, lname = cur.fetchone()
-                print(f"Указанный email принадлежит {fname} {lname}.")
+                data_list = cur.fetchall()
+                print('Указанный email принадлежит следующим клиентам:')
+                for fname, lname in data_list:
+                    print(f'{fname} {lname}')
+            return
 
 
 if __name__ == '__main__':
